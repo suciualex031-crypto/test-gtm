@@ -1,213 +1,91 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campaign Checklist Pro | 2026</title>
-    
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-    </script>
-
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T6SFWCNT');</script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
+    })(window,document,'script','dataLayer','GTM-T6SFWCNT');</script> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tracking Lab | GA4 & GTM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2563eb;
-            --secondary: #64748b;
-            --success: #10b981;
-            --bg: #f1f5f9;
-            --card-bg: #ffffff;
-            --text: #0f172a;
-        }
+        :root { --bg: #05070a; --card: #111827; --primary: #00ffaa; --secondary: #6366f1; --text: #f9fafb; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; justify-content: center; min-height: 100vh; }
+        .dashboard { max-width: 500px; width: 100%; background: var(--card); padding: 40px; border-radius: 24px; border: 1px solid #1f2937; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center; }
+        .status-pill { display: inline-block; padding: 4px 12px; border-radius: 20px; background: rgba(0, 255, 170, 0.1); color: var(--primary); font-size: 0.8rem; margin-bottom: 20px; border: 1px solid var(--primary); }
+        h1 { font-size: 2rem; margin-bottom: 10px; background: linear-gradient(to right, #00ffaa, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p { color: #9ca3af; margin-bottom: 30px; font-size: 0.95rem; }
+        
+        .action-area { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        .btn { padding: 14px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-call { background: var(--primary); color: #05070a; }
+        .btn-link { background: #1f2937; color: white; border: 1px solid #374151; }
+        .btn-contact { background: var(--secondary); color: white; }
+        .btn:hover { transform: scale(1.02); filter: brightness(1.1); }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 500px;
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            font-weight: 800;
-            font-size: 24px;
-            letter-spacing: -1px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        h1 {
-            font-size: 28px;
-            font-weight: 800;
-            margin: 0 0 10px 0;
-            letter-spacing: -0.5px;
-        }
-
-        p {
-            color: var(--secondary);
-            margin-bottom: 30px;
-        }
-
-        .progress-container {
-            background: #e2e8f0;
-            height: 8px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            background: var(--success);
-            width: 0%; /* Se va updata din JS */
-            height: 100%;
-            transition: width 0.4s ease;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 16px;
-            transition: border-color 0.2s;
-            box-sizing: border-box;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .btn {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .btn:hover {
-            background: #1d4ed8;
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .footer-note {
-            font-size: 12px;
-            text-align: center;
-            color: var(--secondary);
-            margin-top: 20px;
-        }
+        form { background: #0b0f1a; padding: 20px; border-radius: 16px; text-align: left; border: 1px solid #1f2937; }
+        label { display: block; margin-bottom: 8px; font-size: 0.8rem; color: #6b7280; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #374151; background: #05070a; color: white; box-sizing: border-box; }
+        .submit-btn { width: 100%; padding: 12px; background: linear-gradient(45deg, #00ffaa, #6366f1); border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; }
     </style>
 </head>
 <body>
-
-    <noscript><iframe src="https://www.googletagmanager.com/gtm.ns?id=GTM-T6SFWCNT"
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6SFWCNT"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <div class="card">
-        <div class="logo">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            Checkly
+    <div class="dashboard">
+        <div class="status-pill">● GTM Lab Active</div>
+        <h1>Crypto Analytics</h1>
+        <p>Apasă butoanele de mai jos pentru a declanșa evenimentele GA4 configurate.</p>
+
+        <div class="action-area">
+            <a href="tel:0722123456" class="btn btn-call">
+                <span>📞</span> Sună Specialistul
+            </a>
+
+            <a href="https://www.binance.com" target="_blank" class="btn btn-link">
+                <span>🌐</span> Vezi Piața Crypto (Extern)
+            </a>
+
+            <button onclick="triggerVirtualContact()" class="btn btn-contact">
+                <span>📩</span> Vezi Pagina Contact (Virtual)
+            </button>
         </div>
 
-        <h1>Gata de lansare?</h1>
-        <p>Completează detaliile de mai jos pentru a primi checklist-ul interactiv.</p>
-
-        <div class="progress-container">
-            <div class="progress-bar" id="pBar"></div>
-        </div>
-
-        <form id="leadForm">
-            <div class="input-group">
-                <label for="name">Nume Complet</label>
-                <input type="text" id="name" placeholder="Ex: Andrei Ionescu" required oninput="updateProgress()">
-            </div>
-
-            <div class="input-group">
-                <label for="email">Adresa de Email</label>
-                <input type="email" id="email" placeholder="andrei@companie.ro" required oninput="updateProgress()">
-            </div>
-
-            <button type="submit" class="btn">Descarcă Checklist-ul</button>
+        <form id="gtm-test-form">
+            <label>Nume Complet</label>
+            <input type="text" id="name" placeholder="Ex: Alex Suciu" required>
+            <label>Adresa Email</label>
+            <input type="email" id="email" placeholder="contact@crypto-test.ro" required>
+            <button type="submit" class="submit-btn">Trimite Lead</button>
         </form>
-
-        <div class="footer-note">
-            Verificat de robotul GitHub Lighthouse pentru viteză maximă.
-        </div>
     </div>
 
     <script>
-        // Funcție pentru bara de progres
-        function updateProgress() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            let progress = 0;
-
-            if (name.length > 2) progress += 50;
-            if (email.includes('@')) progress += 50;
-
-            document.getElementById('pBar').style.width = progress + '%';
-        }
-
-        // Tracking la Submit
-        document.getElementById('leadForm').addEventListener('submit', function(e) {
+        // 1. Logica pentru Formular (generate_lead)
+        document.getElementById('gtm-test-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // 2. DATA LAYER PUSH (Trimitem datele către Google Ads/GTM)
+            window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
-                'event': 'lead_submission',
-                'form_name': 'landing_page_checklist',
-                'user_email': document.getElementById('email').value // Recomandat să fie hash-uit pentru siguranță în realitate
+                'event': 'test_form_submit', // Trigger-ul tău Custom Event
+                'form_name': 'Crypto Lead Form',
+                'form_id': 'gtm-test-form'
             });
-
-            alert('Succes! Datele au fost trimise în Data Layer. Verifică consola!');
-            console.log('DataLayer Update:', window.dataLayer);
+            alert('Lead trimis! Verifică evenimentul "test_form_submit" în GTM.');
         });
-    </script>
 
+        // 2. Logica pentru Pagina Contact Virtuală (contact_page_view)
+        function triggerVirtualContact() {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'virtual_pageview_contact', // Trigger-ul creat anterior
+                'page_path': '/contact',
+                'page_title': 'Contact Us | Crypto Lab'
+            });
+            alert('Pagina virtuală de contact a fost accesată. Verifică GA4 DebugView.');
+        }
+    </script>
 </body>
 </html>
