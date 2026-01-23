@@ -1,0 +1,12 @@
+name: Audit Lighthouse
+on: [push]
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Audit usage with Lighthouse
+        uses: treosh/lighthouse-config-action@v9
+        with:
+          urls: 'https://site-ul-tau.ro/' # SCHIMBĂ CU SITE-UL TĂU
+          assertionLevel: error
