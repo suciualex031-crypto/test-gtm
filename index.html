@@ -6,102 +6,129 @@
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-T6SFWCNT');</script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Crypto Tracking Lab</title>
+    <title>Crypto Analytics Hub | Specialist Test</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* DESIGN SYSTEM */
         :root { 
-            --bg: #030712; --card: #111827; --primary: #10b981; 
-            --secondary: #8b5cf6; --accent: #f59e0b; --text: #f9fafb;
+            --bg: #030712; --card: #111827; --primary: #00ffaa; 
+            --secondary: #6366f1; --wapp: #25D366; --text: #f9fafb;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); min-height: 200vh; padding-top: 20px; }
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background: var(--bg); color: var(--text); 
+            min-height: 150vh; display: flex; flex-direction: column; align-items: center;
+            padding-top: 40px;
+        }
 
-        /* SCROLL BAR */
-        #scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(to right, var(--primary), var(--secondary)); z-index: 1000; }
+        /* BARA DE SCROLL */
+        #scroll-progress { 
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px; 
+            background: linear-gradient(to right, var(--primary), var(--secondary)); z-index: 1000; 
+        }
 
-        /* CONTAINER */
-        .wrapper { width: 95%; max-width: 600px; margin: 0 auto; padding-bottom: 100px; }
+        /* DASHBOARD BOX */
+        .container { 
+            width: 95%; max-width: 500px; background: var(--card); 
+            padding: 30px; border-radius: 28px; border: 1px solid #1f2937; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6); text-align: center;
+        }
 
-        /* PRICE TICKER */
-        .ticker { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--primary); padding: 15px; border-radius: 16px; margin-bottom: 20px; display: flex; justify-content: space-around; font-weight: bold; }
-        .price.up { color: var(--primary); }
-        .price.up::before { content: '▲ '; }
+        /* TICKER PREȚURI */
+        .ticker { 
+            display: flex; justify-content: space-around; background: rgba(0,255,170,0.05);
+            padding: 12px; border-radius: 16px; margin-bottom: 25px; border: 1px solid rgba(0,255,170,0.1);
+            font-size: 0.85rem; font-weight: bold;
+        }
 
-        .dashboard { background: var(--card); padding: 30px; border-radius: 28px; border: 1px solid #1f2937; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); text-align: center; }
+        h1 { font-size: 2.2rem; margin-bottom: 10px; background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p { color: #9ca3af; margin-bottom: 30px; }
+
+        /* BUTOANE GRID */
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .btn { 
+            padding: 14px; border-radius: 12px; border: none; font-weight: 600; 
+            cursor: pointer; transition: 0.3s; text-decoration: none; 
+            display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem;
+        }
+        .btn-call { background: var(--primary); color: #05070a; }
+        .btn-link { background: #1f2937; color: white; border: 1px solid #374151; }
+        .btn-contact { background: var(--secondary); color: white; grid-column: span 2; }
         
-        h1 { font-size: 2.2rem; margin-bottom: 10px; letter-spacing: -1px; }
-        .badge { background: var(--secondary); padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; display: inline-block; }
+        /* WHATSAPP PULSE */
+        .btn-wapp { background: var(--wapp); color: #05070a; grid-column: span 2; position: relative; overflow: hidden; }
+        .pulse { animation: pulse-animation 2s infinite; }
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0); }
+        }
 
-        /* BUTTONS */
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
-        .btn { padding: 14px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: white; }
-        .btn-call { background: var(--primary); color: var(--bg); }
-        .btn-link { background: #1f2937; border: 1px solid #374151; }
-        .btn-contact { background: var(--secondary); grid-column: span 2; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        /* FORMULAR */
+        form { background: #0b0f1a; padding: 20px; border-radius: 16px; border: 1px solid #1f2937; text-align: left; margin-top: 20px; }
+        input { width: 100%; padding: 12px; margin: 8px 0 15px; border-radius: 8px; border: 1px solid #374151; background: var(--bg); color: white; }
+        .submit-btn { width: 100%; padding: 14px; background: linear-gradient(45deg, var(--primary), var(--secondary)); border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; }
 
-        /* SHARE SECTION */
-        .share-box { margin-top: 30px; padding-top: 20px; border-top: 1px solid #1f2937; }
-        .share-btns { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
-        .share-icon { width: 40px; height: 40px; border-radius: 50%; background: #374151; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; font-size: 1.2rem; }
-        .share-icon:hover { background: var(--accent); scale: 1.1; }
+        /* DEBUG LOG SCREEN */
+        #debug-log { 
+            position: fixed; bottom: 15px; right: 15px; width: 220px; max-height: 120px;
+            background: rgba(0,0,0,0.85); border: 1px solid var(--secondary); border-radius: 12px;
+            padding: 10px; font-family: monospace; font-size: 0.7rem; color: var(--primary);
+            overflow-y: auto; z-index: 999; pointer-events: none;
+        }
 
-        /* INTERACTION LOG (Marea noutate) */
-        #debug-log { position: fixed; bottom: 20px; right: 20px; width: 250px; max-height: 150px; background: rgba(0,0,0,0.8); border: 1px solid var(--secondary); border-radius: 12px; padding: 10px; font-family: monospace; font-size: 0.7rem; overflow-y: auto; color: #00ffaa; pointer-events: none; z-index: 999; }
-
-        @media (max-width: 480px) { .btn-grid { grid-template-columns: 1fr; } .btn-contact { grid-column: span 1; } }
+        footer { margin-top: 40px; color: #4b5563; font-size: 0.8rem; }
     </style>
 </head>
 <body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6SFWCNT"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
     <div id="scroll-progress"></div>
-    <div id="debug-log">Log: Așteptare evenimente...</div>
+    <div id="debug-log">Status: Așteptare evenimente...</div>
 
-    <div class="wrapper">
+    <div class="container">
         <div class="ticker">
-            <div>BTC: <span class="price up" id="btc-price">$98,432</span></div>
-            <div>ETH: <span class="price up" id="eth-price">$3,120</span></div>
+            <div>BTC: <span id="btc-price" style="color:var(--primary)">$98,432</span></div>
+            <div>ETH: <span id="eth-price" style="color:var(--secondary)">$3,120</span></div>
         </div>
 
-        <div class="dashboard">
-            <span class="badge">V 2.0 Premium</span>
-            <h1>CryptoLab AI</h1>
-            <p>Specializat în GA4 Event Tracking</p>
+        <h1>Crypto Tracker</h1>
+        <p>Dashboard pentru testare GA4 & GTM</p>
 
-            <div class="btn-grid">
-                <a href="tel:0722123456" class="btn btn-call" onclick="logEvent('Call Click')">📞 Sună Specialist</a>
-                <a href="https://coinmarketcap.com" target="_blank" class="btn btn-link" onclick="logEvent('Outbound Link')">📊 Market Cap</a>
-                <button onclick="triggerVirtualContact()" class="btn btn-contact">📩 Navighează spre Contact</button>
-            </div>
+        <div class="btn-grid">
+            <a href="tel:0722123456" class="btn btn-call" onclick="logToScreen('Click: Telefon')">📞 Sună Acum</a>
+            <a href="https://www.binance.com" target="_blank" class="btn btn-link" onclick="logToScreen('Click: Binance')">🌐 Binance</a>
+            
+            <a href="https://wa.me/40722123456" target="_blank" class="btn btn-wapp pulse" onclick="triggerWapp()">
+                💬 Mesaj WhatsApp
+            </a>
 
-            <form id="gtm-test-form" style="text-align: left; background: #0b0f1a; padding: 20px; border-radius: 16px;">
-                <input type="text" id="name" placeholder="Numele tău" required style="width:100%; padding:10px; margin-bottom:10px; background:#030712; border:1px solid #374151; color:white; border-radius:8px;">
-                <button type="submit" class="submit-btn" style="width:100%; padding:12px; background:var(--primary); border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Trimite Lead</button>
-            </form>
-
-            <div class="share-box">
-                <p style="font-size: 0.8rem;">Distribuie proiectul:</p>
-                <div class="share-btns">
-                    <div class="share-icon" onclick="shareEvent('WhatsApp')">💬</div>
-                    <div class="share-icon" onclick="shareEvent('Twitter')">🐦</div>
-                    <div class="share-icon" onclick="shareEvent('Copy Link')">🔗</div>
-                </div>
-            </div>
+            <button onclick="triggerVirtualContact()" class="btn btn-contact">📩 Vezi Pagina Contact (Virtual)</button>
         </div>
+
+        <form id="gtm-test-form">
+            <label style="font-size:0.8rem; color:#6b7280;">Nume Lead</label>
+            <input type="text" id="name" placeholder="Ex: Alex" required>
+            <button type="submit" class="submit-btn">Trimite Date</button>
+        </form>
     </div>
 
-    <script>
-        // 1. UPDATE PREȚURI (Efect vizual)
-        setInterval(() => {
-            const btc = 98000 + Math.random() * 500;
-            document.getElementById('btc-price').innerText = '$' + btc.toLocaleString(undefined, {maximumFractionDigits: 0});
-        }, 3000);
+    <footer>&copy; 2026 Crypto Tracking Lab | 24/7 Monitoring</footer>
 
-        // 2. SCROLL PROGRESS
+    <script>
+        // Funcție Logger
+        function logToScreen(msg) {
+            const log = document.getElementById('debug-log');
+            log.innerHTML += `<br>> ${msg}`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+        // Bara de Scroll
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -109,40 +136,27 @@
             document.getElementById("scroll-progress").style.width = scrolled + "%";
         };
 
-        // 3. DEBUG LOGGER PE ECRAN
-        function logToScreen(msg) {
-            const log = document.getElementById('debug-log');
-            log.innerHTML += `<br>> ${msg}`;
-            log.scrollTop = log.scrollHeight;
-        }
+        // Simulare prețuri
+        setInterval(() => {
+            const btc = 98000 + Math.random() * 500;
+            document.getElementById('btc-price').innerText = '$' + btc.toLocaleString(undefined, {maximumFractionDigits: 0});
+        }, 3000);
 
-        // 4. EVENIMENTE
-        function shareEvent(platform) {
+        // EVENIMENT: WhatsApp
+        function triggerWapp() {
+            window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
-                'event': 'social_share',
-                'method': platform
+                'event': 'wapp_click',
+                'platform': 'whatsapp'
             });
-            logToScreen(`Share: ${platform}`);
+            logToScreen('GTM: wapp_click sent!');
         }
 
+        // EVENIMENT: Virtual Contact
         function triggerVirtualContact() {
+            window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 'event': 'virtual_pageview_contact',
                 'page_path': '/contact'
             });
-            logToScreen('Virtual PV: /contact');
-        }
-
-        document.getElementById('gtm-test-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            window.dataLayer.push({
-                'event': 'test_form_submit',
-                'form_id': 'crypto_lead_v2'
-            });
-            logToScreen('Form Submit: Sent');
-        });
-
-        function logEvent(name) { logToScreen(`Click: ${name}`); }
-    </script>
-</body>
-</html>
+            log
