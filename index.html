@@ -5,136 +5,144 @@
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T6SFWCNT');</script> 
+    })(window,document,'script','dataLayer','GTM-T6SFWCNT');</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Analytics | Responsive GTM Lab</title>
+    <title>Ultimate Crypto Tracking Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        /* RESETARE & BAZĂ */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* DESIGN SYSTEM */
         :root { 
-            --bg: #05070a; --card: #111827; --primary: #00ffaa; 
-            --secondary: #6366f1; --text: #f9fafb; --input-bg: #0b0f1a;
+            --bg: #030712; --card: #111827; --primary: #10b981; 
+            --secondary: #8b5cf6; --accent: #f59e0b; --text: #f9fafb;
         }
 
-        body { 
-            font-family: 'Space Grotesk', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            min-height: 100vh;
-            padding: 20px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); min-height: 200vh; padding-top: 20px; }
 
-        /* CONTAINERUL PRINCIPAL (RESPONSIVE) */
-        .dashboard { 
-            width: 100%; 
-            max-width: 550px; /* Nu se face mai mare de atât pe desktop */
-            background: var(--card); 
-            padding: 30px; 
-            border-radius: 24px; 
-            border: 1px solid #1f2937; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
-            text-align: center;
-            transition: all 0.3s ease;
-        }
+        /* SCROLL BAR */
+        #scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(to right, var(--primary), var(--secondary)); z-index: 1000; }
 
-        /* TIPOGRAFIE DINAMICĂ */
-        h1 { font-size: clamp(1.5rem, 5vw, 2.2rem); margin-bottom: 10px; background: linear-gradient(to right, #00ffaa, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { color: #9ca3af; margin-bottom: 25px; font-size: 1rem; line-height: 1.5; }
+        /* CONTAINER */
+        .wrapper { width: 95%; max-width: 600px; margin: 0 auto; padding-bottom: 100px; }
 
-        /* BUTOANE FLEXIBILE */
-        .action-area { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 25px; }
+        /* PRICE TICKER */
+        .ticker { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--primary); padding: 15px; border-radius: 16px; margin-bottom: 20px; display: flex; justify-content: space-around; font-weight: bold; }
+        .price.up { color: var(--primary); }
+        .price.up::before { content: '▲ '; }
+
+        .dashboard { background: var(--card); padding: 30px; border-radius: 28px; border: 1px solid #1f2937; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); text-align: center; }
         
-        /* PE TABLETE/DESKTOP BUTOANELE POT STA DOUĂ PE RÂND */
-        @media (min-width: 480px) {
-            .action-area { grid-template-columns: 1fr 1fr; }
-            .btn-contact { grid-column: span 2; } /* Butonul de contact rămâne lat pe tot rândul */
-        }
+        h1 { font-size: 2.2rem; margin-bottom: 10px; letter-spacing: -1px; }
+        .badge { background: var(--secondary); padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; display: inline-block; }
 
-        .btn { 
-            padding: 15px; border-radius: 12px; border: none; font-weight: 600; 
-            cursor: pointer; transition: 0.2s; text-decoration: none; 
-            display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem;
-        }
-        .btn-call { background: var(--primary); color: #05070a; }
-        .btn-link { background: #1f2937; color: white; border: 1px solid #374151; }
-        .btn-contact { background: var(--secondary); color: white; }
-        .btn:active { transform: scale(0.98); }
+        /* BUTTONS */
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0; }
+        .btn { padding: 14px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: white; }
+        .btn-call { background: var(--primary); color: var(--bg); }
+        .btn-link { background: #1f2937; border: 1px solid #374151; }
+        .btn-contact { background: var(--secondary); grid-column: span 2; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
 
-        /* FORMULAR RESPONSIV */
-        form { background: var(--input-bg); padding: 20px; border-radius: 16px; border: 1px solid #1f2937; text-align: left; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-size: 0.8rem; color: #6b7280; }
-        input { 
-            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #374151; 
-            background: var(--bg); color: white; font-size: 1rem; outline: none;
-        }
-        input:focus { border-color: var(--primary); }
-        .submit-btn { width: 100%; padding: 14px; background: linear-gradient(45deg, #00ffaa, #6366f1); border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; font-size: 1rem; }
+        /* SHARE SECTION */
+        .share-box { margin-top: 30px; padding-top: 20px; border-top: 1px solid #1f2937; }
+        .share-btns { display: flex; justify-content: center; gap: 15px; margin-top: 10px; }
+        .share-icon { width: 40px; height: 40px; border-radius: 50%; background: #374151; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; font-size: 1.2rem; }
+        .share-icon:hover { background: var(--accent); scale: 1.1; }
 
-        /* FOOTER */
-        footer { margin-top: auto; padding: 20px; color: #475569; font-size: 0.8rem; }
+        /* INTERACTION LOG (Marea noutate) */
+        #debug-log { position: fixed; bottom: 20px; right: 20px; width: 250px; max-height: 150px; background: rgba(0,0,0,0.8); border: 1px solid var(--secondary); border-radius: 12px; padding: 10px; font-family: monospace; font-size: 0.7rem; overflow-y: auto; color: #00ffaa; pointer-events: none; z-index: 999; }
 
-        /* AJUSTĂRI PENTRU ECRANE FOARTE MICI */
-        @media (max-width: 360px) {
-            .dashboard { padding: 20px; }
-            h1 { font-size: 1.3rem; }
-        }
+        @media (max-width: 480px) { .btn-grid { grid-template-columns: 1fr; } .btn-contact { grid-column: span 1; } }
     </style>
 </head>
 <body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6SFWCNT"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="scroll-progress"></div>
+    <div id="debug-log">Log: Așteptare evenimente...</div>
 
-    <div class="dashboard">
-        <h1>Crypto Tracking</h1>
-        <p>Monitorizare GA4 în timp real.</p>
-
-        <div class="action-area">
-            <a href="tel:0722123456" class="btn btn-call">📞 Sună Acum</a>
-            <a href="https://www.binance.com" target="_blank" class="btn btn-link">🌐 Binance</a>
-            <button onclick="triggerVirtualContact()" class="btn btn-contact">📩 Vezi Contact (Virtual)</button>
+    <div class="wrapper">
+        <div class="ticker">
+            <div>BTC: <span class="price up" id="btc-price">$98,432</span></div>
+            <div>ETH: <span class="price up" id="eth-price">$3,120</span></div>
         </div>
 
-        <form id="gtm-test-form">
-            <div class="form-group">
-                <label>Nume</label>
-                <input type="text" id="name" placeholder="Alex" required>
+        <div class="dashboard">
+            <span class="badge">V 2.0 Premium</span>
+            <h1>CryptoLab AI</h1>
+            <p>Specializat în GA4 Event Tracking</p>
+
+            <div class="btn-grid">
+                <a href="tel:0722123456" class="btn btn-call" onclick="logEvent('Call Click')">📞 Sună Specialist</a>
+                <a href="https://coinmarketcap.com" target="_blank" class="btn btn-link" onclick="logEvent('Outbound Link')">📊 Market Cap</a>
+                <button onclick="triggerVirtualContact()" class="btn btn-contact">📩 Navighează spre Contact</button>
             </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="email" placeholder="test@crypto.ro" required>
+
+            <form id="gtm-test-form" style="text-align: left; background: #0b0f1a; padding: 20px; border-radius: 16px;">
+                <input type="text" id="name" placeholder="Numele tău" required style="width:100%; padding:10px; margin-bottom:10px; background:#030712; border:1px solid #374151; color:white; border-radius:8px;">
+                <button type="submit" class="submit-btn" style="width:100%; padding:12px; background:var(--primary); border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Trimite Lead</button>
+            </form>
+
+            <div class="share-box">
+                <p style="font-size: 0.8rem;">Distribuie proiectul:</p>
+                <div class="share-btns">
+                    <div class="share-icon" onclick="shareEvent('WhatsApp')">💬</div>
+                    <div class="share-icon" onclick="shareEvent('Twitter')">🐦</div>
+                    <div class="share-icon" onclick="shareEvent('Copy Link')">🔗</div>
+                </div>
             </div>
-            <button type="submit" class="submit-btn">Trimite Lead</button>
-        </form>
+        </div>
     </div>
 
-    <footer>&copy; 2026 Crypto Lab | Responsive Design</footer>
-
     <script>
-        // JS pentru evenimente (Rămâne neschimbat, funcționează perfect)
-        document.getElementById('gtm-test-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            window.dataLayer = window.dataLayer || [];
+        // 1. UPDATE PREȚURI (Efect vizual)
+        setInterval(() => {
+            const btc = 98000 + Math.random() * 500;
+            document.getElementById('btc-price').innerText = '$' + btc.toLocaleString(undefined, {maximumFractionDigits: 0});
+        }, 3000);
+
+        // 2. SCROLL PROGRESS
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        };
+
+        // 3. DEBUG LOGGER PE ECRAN
+        function logToScreen(msg) {
+            const log = document.getElementById('debug-log');
+            log.innerHTML += `<br>> ${msg}`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+        // 4. EVENIMENTE
+        function shareEvent(platform) {
             window.dataLayer.push({
-                'event': 'test_form_submit',
-                'form_id': 'gtm-test-form'
+                'event': 'social_share',
+                'method': platform
             });
-            alert('Lead trimis!');
-        });
+            logToScreen(`Share: ${platform}`);
+        }
 
         function triggerVirtualContact() {
-            window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 'event': 'virtual_pageview_contact',
                 'page_path': '/contact'
             });
-            alert('Pagina virtuală accesată!');
+            logToScreen('Virtual PV: /contact');
         }
+
+        document.getElementById('gtm-test-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            window.dataLayer.push({
+                'event': 'test_form_submit',
+                'form_id': 'crypto_lead_v2'
+            });
+            logToScreen('Form Submit: Sent');
+        });
+
+        function logEvent(name) { logToScreen(`Click: ${name}`); }
     </script>
 </body>
 </html>
