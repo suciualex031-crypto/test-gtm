@@ -5,148 +5,11 @@
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T6SFWCNT');
-    // 1. view_item_list (Se declanșează când se încarcă pagina)
-window.dataLayer.push({
-  event: "view_item_list",
-  ecommerce: {
-    item_list_id: "related_products",
-    item_list_name: "Featured Cryptos",
-    items: [
-      { item_id: "BTC-01", item_name: "Bitcoin", price: 98000, item_category: "Coin" },
-      { item_id: "ETH-01", item_name: "Ethereum", price: 3120, item_category: "Coin" }
-    ]
-  }
-});
-        <div id="shopping-cart" style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed #374151; display: none;">
-    <h3 style="font-size: 1rem; color: var(--secondary); margin-bottom: 15px;">🛒 Coșul tău Crypto</h3>
-    <div id="cart-items-list">
-        </div>
-    <div style="margin-top: 15px; font-weight: bold; display: flex; justify-content: space-between;">
-        <span>Total:</span>
-        <span id="cart-total">$0</span>
-    </div>
-</div>
+    })(window,document,'script','dataLayer','GTM-T6SFWCNT');</script>
 
-<button id="view-cart-btn" onclick="openCart()" style="display:none; width:100%; margin-top: 10px; background: none; border: 1px solid var(--secondary); color: var(--secondary); padding: 8px; border-radius: 8px; cursor: pointer;">
-    Vezi Detalii Coș
-</button>
-
-// 2. select_item (Când dai click pe o monedă din listă)
-function trackSelect(id, name, price) {
-    window.dataLayer.push({
-        event: "select_item",
-        ecommerce: {
-            item_list_id: "related_products",
-            item_list_name: "Featured Cryptos",
-            items: [{
-                item_id: id + "-01",
-                item_name: name,
-                price: price,
-                item_category: "Coin"
-            }]
-        }
-    });
-    logToScreen(`Select: ${name}`);
-    // După click, simulăm vizualizarea produsului (view_item)
-    trackViewItem(id, name, price);
-}
-
-// 3. view_item (Când utilizatorul se uită la detaliile unei monede)
-function trackViewItem(id, name, price) {
-    window.dataLayer.push({
-        event: "view_item",
-        ecommerce: {
-            currency: "USD",
-            value: price,
-            items: [{
-                item_id: id + "-01",
-                item_name: name,
-                price: price,
-                item_category: "Coin"
-            }]
-        }
-    });
-    logToScreen(`View Item: ${name}`);
-}
-  let cart = [];
-
-// 1. ADD TO CART
-function trackAddToCart(id, name, price) {
-    const item = { item_id: id + "-01", item_name: name, price: price, quantity: 1, item_category: "Currency" };
-    cart.push(item);
-    
-    window.dataLayer.push({
-        event: "add_to_cart",
-        ecommerce: { currency: "USD", value: price, items: [item] }
-    });
-
-    updateCartUI();
-    logToScreen(`Cart: Added ${name}`);
-}
-
-// 2. VIEW CART
-function openCart() {
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    
-    window.dataLayer.push({
-        event: "view_cart",
-        ecommerce: {
-            currency: "USD",
-            value: total,
-            items: cart
-        }
-    });
-
-    document.getElementById('shopping-cart').style.display = 'block';
-    logToScreen("Ecommerce: view_cart sent");
-}
-
-// 3. REMOVE FROM CART
-function removeFromCart(index) {
-    const removedItem = cart[index];
-    
-    window.dataLayer.push({
-        event: "remove_from_cart",
-        ecommerce: {
-            currency: "USD",
-            value: removedItem.price,
-            items: [removedItem]
-        }
-    });
-
-    cart.splice(index, 1); // Ștergem din array-ul local
-    updateCartUI();
-    logToScreen(`Removed: ${removedItem.item_name}`);
-}
-
-// Funcție pentru a actualiza vizual coșul pe site
-function updateCartUI() {
-    const list = document.getElementById('cart-items-list');
-    const totalEl = document.getElementById('cart-total');
-    const viewBtn = document.getElementById('view-cart-btn');
-    
-    list.innerHTML = "";
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        total += item.price;
-        list.innerHTML += `
-            <div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:0.85rem;">
-                <span>${item.item_name}</span>
-                <span>$${item.price} <button onclick="removeFromCart(${index})" style="color:red; background:none; border:none; cursor:pointer; font-weight:bold;">[X]</button></span>
-            </div>
-        `;
-    });
-
-    totalEl.innerText = "$" + total.toLocaleString();
-    viewBtn.style.display = cart.length > 0 ? "block" : "none";
-    if (cart.length === 0) document.getElementById('shopping-cart').style.display = 'none';
-}      
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Analytics Hub | Specialist Test</title>
+    <title>Crypto Tracking Lab | E-commerce</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
@@ -154,90 +17,38 @@ function updateCartUI() {
             --bg: #030712; --card: #111827; --primary: #00ffaa; 
             --secondary: #6366f1; --wapp: #25D366; --text: #f9fafb;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Space Grotesk', sans-serif; 
-            background: var(--bg); color: var(--text); 
-            min-height: 150vh; display: flex; flex-direction: column; align-items: center;
-            padding-top: 40px;
-        }
-
-        /* BARA DE SCROLL */
-        #scroll-progress { 
-            position: fixed; top: 0; left: 0; width: 0%; height: 4px; 
-            background: linear-gradient(to right, var(--primary), var(--secondary)); z-index: 1000; 
-        }
-
-        /* DASHBOARD BOX */
-        .container { 
-            width: 95%; max-width: 500px; background: var(--card); 
-            padding: 30px; border-radius: 28px; border: 1px solid #1f2937; 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6); text-align: center;
-        }
-
-        /* TICKER PREȚURI */
-        .ticker { 
-            display: flex; justify-content: space-around; background: rgba(0,255,170,0.05);
-            padding: 12px; border-radius: 16px; margin-bottom: 25px; border: 1px solid rgba(0,255,170,0.1);
-            font-size: 0.85rem; font-weight: bold;
-        }
-
-        h1 { font-size: 2.2rem; margin-bottom: 10px; background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { color: #9ca3af; margin-bottom: 30px; }
-        <div id="crypto-list" style="margin-bottom: 25px; text-align: left;">
-    <p style="font-size: 0.8rem; margin-bottom: 10px;">🔥 Featured Coins:</p>
-    
-    <div class="crypto-card" onclick="trackSelect('BTC', 'Bitcoin', 98000)" style="background: #1f2937; padding: 10px; border-radius: 8px; cursor: pointer; margin-bottom: 8px; border: 1px solid transparent;" onmouseover="this.style.borderColor='#00ffaa'" onmouseout="this.style.borderColor='transparent'">
-        <span style="font-weight: bold;">Bitcoin (BTC)</span> - $98,000
-    </div>
-
-    <div class="crypto-card" onclick="trackSelect('ETH', 'Ethereum', 3120)" style="background: #1f2937; padding: 10px; border-radius: 8px; cursor: pointer; border: 1px solid transparent;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='transparent'">
-        <span style="font-weight: bold;">Ethereum (ETH)</span> - $3,120
-    </div>
-</div>
-        /* BUTOANE GRID */
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-        .btn { 
-            padding: 14px; border-radius: 12px; border: none; font-weight: 600; 
-            cursor: pointer; transition: 0.3s; text-decoration: none; 
-            display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem;
-        }
-        .btn-call { background: var(--primary); color: #05070a; }
-        .btn-link { background: #1f2937; color: white; border: 1px solid #374151; }
-        .btn-contact { background: var(--secondary); color: white; grid-column: span 2; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); min-height: 150vh; display: flex; flex-direction: column; align-items: center; padding-top: 40px; }
         
-        /* WHATSAPP PULSE */
-        .btn-wapp { background: var(--wapp); color: #05070a; grid-column: span 2; position: relative; overflow: hidden; }
-        .pulse { animation: pulse-animation 2s infinite; }
-        @keyframes pulse-animation {
-            0% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0.5); }
-            70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0); }
-        }
+        #scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(to right, var(--primary), var(--secondary)); z-index: 1000; }
+        
+        .container { width: 95%; max-width: 500px; background: var(--card); padding: 30px; border-radius: 28px; border: 1px solid #1f2937; box-shadow: 0 25px 50px rgba(0,0,0,0.6); text-align: center; }
+        
+        .ticker { display: flex; justify-content: space-around; background: rgba(0,255,170,0.05); padding: 12px; border-radius: 16px; margin-bottom: 25px; border: 1px solid rgba(0,255,170,0.1); font-size: 0.85rem; font-weight: bold; }
+        
+        h1 { font-size: 2.2rem; margin-bottom: 10px; background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* CRYPTO CARDS */
+        .crypto-card { background: #1f2937; padding: 15px; border-radius: 12px; cursor: pointer; margin-bottom: 10px; border: 1px solid transparent; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
+        .crypto-card:hover { border-color: var(--primary); }
+        
+        /* CART STYLES */
+        #shopping-cart { margin-top: 20px; padding: 15px; border: 1px dashed var(--secondary); border-radius: 12px; background: rgba(99, 102, 241, 0.05); text-align: left; }
+        
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+        .btn { padding: 14px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; color: white; }
+        .btn-call { background: var(--primary); color: #05070a; }
+        .btn-wapp { background: var(--wapp); color: #05070a; grid-column: span 2; }
+        .btn-buy { background: var(--primary); color: #05070a; padding: 5px 10px; font-size: 0.7rem; border-radius: 5px; }
 
-        /* FORMULAR */
-        form { background: #0b0f1a; padding: 20px; border-radius: 16px; border: 1px solid #1f2937; text-align: left; margin-top: 20px; }
-        input { width: 100%; padding: 12px; margin: 8px 0 15px; border-radius: 8px; border: 1px solid #374151; background: var(--bg); color: white; }
-        .submit-btn { width: 100%; padding: 14px; background: linear-gradient(45deg, var(--primary), var(--secondary)); border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; }
-
-        /* DEBUG LOG SCREEN */
-        #debug-log { 
-            position: fixed; bottom: 15px; right: 15px; width: 220px; max-height: 120px;
-            background: rgba(0,0,0,0.85); border: 1px solid var(--secondary); border-radius: 12px;
-            padding: 10px; font-family: monospace; font-size: 0.7rem; color: var(--primary);
-            overflow-y: auto; z-index: 999; pointer-events: none;
-        }
-
-        footer { margin-top: 40px; color: #4b5563; font-size: 0.8rem; }
+        #debug-log { position: fixed; bottom: 15px; right: 15px; width: 220px; max-height: 120px; background: rgba(0,0,0,0.85); border: 1px solid var(--secondary); border-radius: 12px; padding: 10px; font-family: monospace; font-size: 0.7rem; color: var(--primary); overflow-y: auto; z-index: 999; pointer-events: none; }
     </style>
 </head>
 <body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6SFWCNT"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6SFWCNT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="scroll-progress"></div>
-    <div id="debug-log">Status: Așteptare evenimente...</div>
+    <div id="debug-log">Status: GTM Ready...</div>
 
     <div class="container">
         <div class="ticker">
@@ -246,67 +57,148 @@ function updateCartUI() {
         </div>
 
         <h1>Crypto Tracker</h1>
-        <p>Dashboard pentru testare GA4 & GTM</p>
+        <p>E-commerce GA4 Tracking Lab</p>
 
-        <div class="btn-grid">
-            <a href="tel:0722123456" class="btn btn-call" onclick="logToScreen('Click: Telefon')">📞 Sună Acum</a>
-            <a href="https://www.binance.com" target="_blank" class="btn btn-link" onclick="logToScreen('Click: Binance')">🌐 Binance</a>
+        <div id="crypto-list" style="margin-bottom: 25px; text-align: left;">
+            <p style="font-size: 0.8rem; margin-bottom: 10px; color: #6b7280;">🔥 Featured Coins:</p>
             
-            <a href="https://wa.me/40722123456" target="_blank" class="btn btn-wapp pulse" onclick="triggerWapp()">
-                💬 Mesaj WhatsApp
-            </a>
+            <div class="crypto-card" onclick="trackSelect('BTC', 'Bitcoin', 98000)">
+                <span>Bitcoin (BTC) - $98,000</span>
+                <button class="btn-buy" onclick="event.stopPropagation(); trackAddToCart('BTC', 'Bitcoin', 98000)">BUY</button>
+            </div>
 
-            <button onclick="triggerVirtualContact()" class="btn btn-contact">📩 Vezi Pagina Contact (Virtual)</button>
+            <div class="crypto-card" onclick="trackSelect('ETH', 'Ethereum', 3120)">
+                <span>Ethereum (ETH) - $3,120</span>
+                <button class="btn-buy" onclick="event.stopPropagation(); trackAddToCart('ETH', 'Ethereum', 3120)">BUY</button>
+            </div>
         </div>
 
-        <form id="gtm-test-form">
-            <label style="font-size:0.8rem; color:#6b7280;">Nume Lead</label>
-            <input type="text" id="name" placeholder="Ex: Alex" required>
-            <button type="submit" class="submit-btn">Trimite Date</button>
-        </form>
+        <div id="shopping-cart" style="display: none;">
+            <h3 style="font-size: 0.9rem; color: var(--secondary); margin-bottom: 10px;">🛒 Coșul tău</h3>
+            <div id="cart-items-list"></div>
+            <div style="margin-top: 10px; font-weight: bold; font-size: 0.9rem;">Total: <span id="cart-total">$0</span></div>
+        </div>
+
+        <button id="view-cart-btn" onclick="openCart()" style="display:none; width:100%; margin: 10px 0; background: none; border: 1px solid var(--secondary); color: var(--secondary); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold;">
+            Vezi Detalii Coș
+        </button>
+
+        <div class="btn-grid">
+            <a href="tel:0722123456" class="btn btn-call" onclick="logToScreen('Click: Telefon')">📞 Sună</a>
+            <a href="https://wa.me/40722123456" target="_blank" class="btn btn-wapp" onclick="triggerWapp()">💬 WhatsApp</a>
+        </div>
     </div>
 
-    <footer>&copy; 2026 Crypto Tracking Lab | 24/7 Monitoring</footer>
-
     <script>
-        // Funcție Logger
+        let cart = [];
+
         function logToScreen(msg) {
             const log = document.getElementById('debug-log');
-            log.innerHTML += `<br>> ${msg}`;
-            log.scrollTop = log.scrollHeight;
+            if(log) {
+                log.innerHTML += `<br>> ${msg}`;
+                log.scrollTop = log.scrollHeight;
+            }
         }
 
-        // Bara de Scroll
+        // view_item_list la încărcare
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: "view_item_list",
+            ecommerce: {
+                item_list_id: "related_products",
+                item_list_name: "Featured Cryptos",
+                items: [
+                    { item_id: "BTC-01", item_name: "Bitcoin", price: 98000, item_category: "Coin" },
+                    { item_id: "ETH-01", item_name: "Ethereum", price: 3120, item_category: "Coin" }
+                ]
+            }
+        });
+
+        function trackSelect(id, name, price) {
+            window.dataLayer.push({
+                event: "select_item",
+                ecommerce: {
+                    item_list_id: "related_products",
+                    items: [{ item_id: id + "-01", item_name: name, price: price, item_category: "Coin" }]
+                }
+            });
+            logToScreen(`Select: ${name}`);
+            trackViewItem(id, name, price);
+        }
+
+        function trackViewItem(id, name, price) {
+            window.dataLayer.push({
+                event: "view_item",
+                ecommerce: { currency: "USD", value: price, items: [{ item_id: id + "-01", item_name: name, price: price }] }
+            });
+            logToScreen(`View Item: ${name}`);
+        }
+
+        function trackAddToCart(id, name, price) {
+            const item = { item_id: id + "-01", item_name: name, price: price, quantity: 1 };
+            cart.push(item);
+            window.dataLayer.push({
+                event: "add_to_cart",
+                ecommerce: { currency: "USD", value: price, items: [item] }
+            });
+            updateCartUI();
+            logToScreen(`Cart: Added ${name}`);
+        }
+
+        function openCart() {
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            window.dataLayer.push({
+                event: "view_cart",
+                ecommerce: { currency: "USD", value: total, items: cart }
+            });
+            document.getElementById('shopping-cart').style.display = 'block';
+            logToScreen("Ecommerce: view_cart sent");
+        }
+
+        function removeFromCart(index) {
+            const removedItem = cart[index];
+            window.dataLayer.push({
+                event: "remove_from_cart",
+                ecommerce: { currency: "USD", value: removedItem.price, items: [removedItem] }
+            });
+            cart.splice(index, 1);
+            updateCartUI();
+            logToScreen(`Removed: ${removedItem.item_name}`);
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cart-items-list');
+            const totalEl = document.getElementById('cart-total');
+            const viewBtn = document.getElementById('view-cart-btn');
+            list.innerHTML = "";
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                list.innerHTML += `<div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:5px;"><span>${item.item_name}</span><span>$${item.price} <button onclick="removeFromCart(${index})" style="color:red; background:none; border:none; cursor:pointer;">[X]</button></span></div>`;
+            });
+            totalEl.innerText = "$" + total.toLocaleString();
+            viewBtn.style.display = cart.length > 0 ? "block" : "none";
+            if (cart.length === 0) document.getElementById('shopping-cart').style.display = 'none';
+        }
+
+        function triggerWapp() {
+            window.dataLayer.push({ 'event': 'wapp_click', 'platform': 'whatsapp' });
+            logToScreen('GTM: wapp_click sent!');
+        }
+
+        // Ticker & Scroll
+        setInterval(() => {
+            const btc = 98000 + Math.random() * 500;
+            const el = document.getElementById('btc-price');
+            if(el) el.innerText = '$' + btc.toLocaleString(undefined, {maximumFractionDigits: 0});
+        }, 3000);
+
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             let scrolled = (winScroll / height) * 100;
             document.getElementById("scroll-progress").style.width = scrolled + "%";
         };
-
-        // Simulare prețuri
-        setInterval(() => {
-            const btc = 98000 + Math.random() * 500;
-            document.getElementById('btc-price').innerText = '$' + btc.toLocaleString(undefined, {maximumFractionDigits: 0});
-        }, 3000);
-
-        // EVENIMENT: WhatsApp
-        function triggerWapp() {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                'event': 'wapp_click',
-                'platform': 'whatsapp'
-            });
-            logToScreen('GTM: wapp_click sent!');
-        }
-
-        // EVENIMENT: Virtual Contact
-        function triggerVirtualContact() {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                'event': 'virtual_pageview_contact',
-                'page_path': '/contact'
-            });
-            log
-
-
+    </script>
+</body>
+</html>
