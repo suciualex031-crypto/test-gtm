@@ -5,7 +5,58 @@
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T6SFWCNT');</script>
+    })(window,document,'script','dataLayer','GTM-T6SFWCNT');
+    // 1. view_item_list (Se declanșează când se încarcă pagina)
+window.dataLayer.push({
+  event: "view_item_list",
+  ecommerce: {
+    item_list_id: "related_products",
+    item_list_name: "Featured Cryptos",
+    items: [
+      { item_id: "BTC-01", item_name: "Bitcoin", price: 98000, item_category: "Coin" },
+      { item_id: "ETH-01", item_name: "Ethereum", price: 3120, item_category: "Coin" }
+    ]
+  }
+});
+
+// 2. select_item (Când dai click pe o monedă din listă)
+function trackSelect(id, name, price) {
+    window.dataLayer.push({
+        event: "select_item",
+        ecommerce: {
+            item_list_id: "related_products",
+            item_list_name: "Featured Cryptos",
+            items: [{
+                item_id: id + "-01",
+                item_name: name,
+                price: price,
+                item_category: "Coin"
+            }]
+        }
+    });
+    logToScreen(`Select: ${name}`);
+    // După click, simulăm vizualizarea produsului (view_item)
+    trackViewItem(id, name, price);
+}
+
+// 3. view_item (Când utilizatorul se uită la detaliile unei monede)
+function trackViewItem(id, name, price) {
+    window.dataLayer.push({
+        event: "view_item",
+        ecommerce: {
+            currency: "USD",
+            value: price,
+            items: [{
+                item_id: id + "-01",
+                item_name: name,
+                price: price,
+                item_category: "Coin"
+            }]
+        }
+    });
+    logToScreen(`View Item: ${name}`);
+}
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Analytics Hub | Specialist Test</title>
@@ -47,7 +98,17 @@
 
         h1 { font-size: 2.2rem; margin-bottom: 10px; background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         p { color: #9ca3af; margin-bottom: 30px; }
+        <div id="crypto-list" style="margin-bottom: 25px; text-align: left;">
+    <p style="font-size: 0.8rem; margin-bottom: 10px;">🔥 Featured Coins:</p>
+    
+    <div class="crypto-card" onclick="trackSelect('BTC', 'Bitcoin', 98000)" style="background: #1f2937; padding: 10px; border-radius: 8px; cursor: pointer; margin-bottom: 8px; border: 1px solid transparent;" onmouseover="this.style.borderColor='#00ffaa'" onmouseout="this.style.borderColor='transparent'">
+        <span style="font-weight: bold;">Bitcoin (BTC)</span> - $98,000
+    </div>
 
+    <div class="crypto-card" onclick="trackSelect('ETH', 'Ethereum', 3120)" style="background: #1f2937; padding: 10px; border-radius: 8px; cursor: pointer; border: 1px solid transparent;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='transparent'">
+        <span style="font-weight: bold;">Ethereum (ETH)</span> - $3,120
+    </div>
+</div>
         /* BUTOANE GRID */
         .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .btn { 
@@ -160,3 +221,4 @@
                 'page_path': '/contact'
             });
             log
+
