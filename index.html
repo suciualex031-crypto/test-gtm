@@ -5,7 +5,75 @@
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T6SFWCNT');</script>
+    })(window,document,'script','dataLayer','GTM-T6SFWCNT');
+        // Funcție pentru a calcula valoarea totală a coșului
+function getCartValue() {
+    return cart.reduce((sum, item) => sum + item.price, 0);
+}
+
+// 1. BEGIN CHECKOUT
+function startCheckout() {
+    window.dataLayer.push({
+        event: "begin_checkout",
+        ecommerce: {
+            currency: "USD",
+            value: getCartValue(),
+            items: cart
+        }
+    });
+    
+    document.getElementById('step-cart').style.display = 'none';
+    document.getElementById('step-shipping').style.display = 'block';
+    logToScreen("Event: begin_checkout sent");
+}
+
+// 2. ADD SHIPPING INFO
+function addShipping() {
+    window.dataLayer.push({
+        event: "add_shipping_info",
+        ecommerce: {
+            currency: "USD",
+            value: getCartValue(),
+            shipping_tier: "Ground", // Exemplu de parametru opțional
+            items: cart
+        }
+    });
+
+    document.getElementById('step-shipping').style.display = 'none';
+    document.getElementById('step-payment').style.display = 'block';
+    logToScreen("Event: add_shipping_info sent");
+}
+
+// 3. ADD PAYMENT INFO
+function addPayment() {
+    const method = document.getElementById('payment-method').value;
+    window.dataLayer.push({
+        event: "add_payment_info",
+        ecommerce: {
+            currency: "USD",
+            value: getCartValue(),
+            payment_type: method,
+            items: cart
+        }
+    });
+
+    logToScreen(`Event: add_payment_info (${method})`);
+    alert("Informații de plată adăugate! Ești gata pentru Purchase.");
+}
+
+// Modificăm funcția existentă openCart pentru a afișa containerul mare
+function openCart() {
+    window.dataLayer.push({ 
+        event: "view_cart", 
+        ecommerce: { value: getCartValue(), items: cart } 
+    });
+    document.getElementById('checkout-container').style.display = 'block';
+    document.getElementById('step-cart').style.display = 'block';
+    document.getElementById('step-shipping').style.display = 'none';
+    document.getElementById('step-payment').style.display = 'none';
+    logToScreen("Event: view_cart");
+}
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,12 +137,30 @@
             </div>
         </div>
 
-        <div id="shopping-cart" style="display: none;">
-            <h3 style="font-size: 0.9rem; color: var(--secondary); margin-bottom: 10px;">🛒 Coșul tău</h3>
-            <div id="cart-items-list"></div>
-            <div style="margin-top: 10px; font-weight: bold;">Total: <span id="cart-total">$0</span></div>
-            <button onclick="openCart()" style="width:100%; margin-top:10px; background:var(--secondary); color:white; border:none; padding:8px; border-radius:8px; cursor:pointer;">View Cart Details</button>
-        </div>
+       <div id="checkout-container" style="display: none; margin: 20px 0; padding: 20px; border: 1px solid var(--secondary); border-radius: 16px; background: rgba(99, 102, 241, 0.05); text-align: left;">
+    
+    <div id="step-cart">
+        <h3 style="font-size: 1rem; color: var(--secondary); margin-bottom: 10px;">🛒 1. Coșul tău</h3>
+        <div id="cart-items-list"></div>
+        <div style="margin-top: 10px; font-weight: bold; border-top: 1px solid #374151; pt-10">Total: <span id="cart-total">$0</span></div>
+        <button onclick="startCheckout()" style="width:100%; margin-top:15px; background:var(--primary); color:#05070a; border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight:bold;">Începe Checkout (Begin)</button>
+    </div>
+
+    <div id="step-shipping" style="display: none;">
+        <h3 style="font-size: 1rem; color: var(--secondary); margin-bottom: 10px;">📦 2. Adresă Livrare / Wallet</h3>
+        <input type="text" id="shipping-address" placeholder="Adresa ta sau Wallet ID" style="margin-bottom:10px;">
+        <button onclick="addShipping()" style="width:100%; background:var(--primary); color:#05070a; border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight:bold;">Confirmă Adresa (Shipping)</button>
+    </div>
+
+    <div id="step-payment" style="display: none;">
+        <h3 style="font-size: 1rem; color: var(--secondary); margin-bottom: 10px;">💳 3. Metodă de Plată</h3>
+        <select id="payment-method" style="width:100%; padding:10px; border-radius:8px; background:var(--bg); color:white; border:1px solid #374151; margin-bottom:15px;">
+            <option value="card">Card Bancar</option>
+            <option value="crypto">Crypto Transfer</option>
+        </select>
+        <button onclick="addPayment()" style="width:100%; background:var(--primary); color:#05070a; border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight:bold;">Confirmă Plata (Payment)</button>
+    </div>
+</div>
 
         <div class="btn-grid">
             <a href="tel:0722123456" class="btn btn-call" onclick="logToScreen('Click: Call')">📞 Sună Acum</a>
@@ -178,3 +264,4 @@
     </script>
 </body>
 </html>
+
