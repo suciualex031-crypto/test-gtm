@@ -18,6 +18,19 @@ window.dataLayer.push({
     ]
   }
 });
+        <div id="shopping-cart" style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed #374151; display: none;">
+    <h3 style="font-size: 1rem; color: var(--secondary); margin-bottom: 15px;">🛒 Coșul tău Crypto</h3>
+    <div id="cart-items-list">
+        </div>
+    <div style="margin-top: 15px; font-weight: bold; display: flex; justify-content: space-between;">
+        <span>Total:</span>
+        <span id="cart-total">$0</span>
+    </div>
+</div>
+
+<button id="view-cart-btn" onclick="openCart()" style="display:none; width:100%; margin-top: 10px; background: none; border: 1px solid var(--secondary); color: var(--secondary); padding: 8px; border-radius: 8px; cursor: pointer;">
+    Vezi Detalii Coș
+</button>
 
 // 2. select_item (Când dai click pe o monedă din listă)
 function trackSelect(id, name, price) {
@@ -56,6 +69,80 @@ function trackViewItem(id, name, price) {
     });
     logToScreen(`View Item: ${name}`);
 }
+  let cart = [];
+
+// 1. ADD TO CART
+function trackAddToCart(id, name, price) {
+    const item = { item_id: id + "-01", item_name: name, price: price, quantity: 1, item_category: "Currency" };
+    cart.push(item);
+    
+    window.dataLayer.push({
+        event: "add_to_cart",
+        ecommerce: { currency: "USD", value: price, items: [item] }
+    });
+
+    updateCartUI();
+    logToScreen(`Cart: Added ${name}`);
+}
+
+// 2. VIEW CART
+function openCart() {
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    
+    window.dataLayer.push({
+        event: "view_cart",
+        ecommerce: {
+            currency: "USD",
+            value: total,
+            items: cart
+        }
+    });
+
+    document.getElementById('shopping-cart').style.display = 'block';
+    logToScreen("Ecommerce: view_cart sent");
+}
+
+// 3. REMOVE FROM CART
+function removeFromCart(index) {
+    const removedItem = cart[index];
+    
+    window.dataLayer.push({
+        event: "remove_from_cart",
+        ecommerce: {
+            currency: "USD",
+            value: removedItem.price,
+            items: [removedItem]
+        }
+    });
+
+    cart.splice(index, 1); // Ștergem din array-ul local
+    updateCartUI();
+    logToScreen(`Removed: ${removedItem.item_name}`);
+}
+
+// Funcție pentru a actualiza vizual coșul pe site
+function updateCartUI() {
+    const list = document.getElementById('cart-items-list');
+    const totalEl = document.getElementById('cart-total');
+    const viewBtn = document.getElementById('view-cart-btn');
+    
+    list.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price;
+        list.innerHTML += `
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:0.85rem;">
+                <span>${item.item_name}</span>
+                <span>$${item.price} <button onclick="removeFromCart(${index})" style="color:red; background:none; border:none; cursor:pointer; font-weight:bold;">[X]</button></span>
+            </div>
+        `;
+    });
+
+    totalEl.innerText = "$" + total.toLocaleString();
+    viewBtn.style.display = cart.length > 0 ? "block" : "none";
+    if (cart.length === 0) document.getElementById('shopping-cart').style.display = 'none';
+}      
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -221,4 +308,5 @@ function trackViewItem(id, name, price) {
                 'page_path': '/contact'
             });
             log
+
 
