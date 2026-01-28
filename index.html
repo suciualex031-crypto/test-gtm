@@ -9,40 +9,29 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Tracking Lab | GA4 Ecommerce Expert</title>
+    <title>Crypto Expert | Final Purchase Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --bg: #030712; --card: #111827; --primary: #00ffaa; --secondary: #6366f1; --wapp: #25D366; --text: #f9fafb; }
+        :root { --bg: #030712; --card: #111827; --primary: #00ffaa; --secondary: #6366f1; --wapp: #25D366; --text: #f9fafb; --danger: #ef4444; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); min-height: 180vh; display: flex; flex-direction: column; align-items: center; padding-top: 40px; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); min-height: 200vh; display: flex; flex-direction: column; align-items: center; padding-top: 40px; }
         
-        /* UI ELEMENTS */
         #scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(to right, var(--primary), var(--secondary)); z-index: 1000; }
         .container { width: 95%; max-width: 500px; background: var(--card); padding: 30px; border-radius: 28px; border: 1px solid #1f2937; box-shadow: 0 25px 50px rgba(0,0,0,0.6); text-align: center; }
         .ticker { display: flex; justify-content: space-around; background: rgba(0,255,170,0.05); padding: 12px; border-radius: 16px; margin-bottom: 25px; border: 1px solid rgba(0,255,170,0.1); font-size: 0.85rem; font-weight: bold; }
         h1 { font-size: 2.2rem; margin-bottom: 10px; background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* CARDS */
-        .crypto-card { background: #1f2937; padding: 15px; border-radius: 12px; cursor: pointer; margin-bottom: 10px; border: 1px solid transparent; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
-        .crypto-card:hover { border-color: var(--primary); }
-        
-        /* CHECKOUT UI */
-        #checkout-container { margin: 20px 0; padding: 20px; border: 1px solid var(--secondary); border-radius: 16px; background: rgba(99, 102, 241, 0.05); text-align: left; }
-        .checkout-step { display: none; }
+        .crypto-card { background: #1f2937; padding: 15px; border-radius: 12px; cursor: pointer; margin-bottom: 10px; border: 1px solid transparent; display: flex; justify-content: space-between; align-items: center; }
+        .checkout-step { display: none; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-top: 15px; text-align: left; }
         .active-step { display: block; }
+        
         input, select { width: 100%; padding: 12px; margin: 8px 0 15px; border-radius: 8px; border: 1px solid #374151; background: var(--bg); color: white; }
+        .btn { padding: 14px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; color: white; transition: 0.3s; }
+        .btn-primary { background: var(--primary); color: #05070a; }
+        .btn-secondary { background: var(--secondary); }
+        .btn-danger { background: none; border: 1px solid var(--danger); color: var(--danger); margin-top: 10px; }
 
-        /* BUTTONS */
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
-        .btn { padding: 14px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; color: white; }
-        .btn-call { background: var(--primary); color: #05070a; }
-        .btn-wapp { background: var(--wapp); color: #05070a; grid-column: span 2; }
-        .btn-contact { background: var(--secondary); grid-column: span 2; }
-        .pulse { animation: pulse-animation 2s infinite; }
-        @keyframes pulse-animation { 0% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0.5); } 70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0); } }
-
-        /* DEBUG LOG */
         #debug-log { position: fixed; bottom: 15px; right: 15px; width: 220px; max-height: 120px; background: rgba(0,0,0,0.85); border: 1px solid var(--secondary); border-radius: 12px; padding: 10px; font-family: monospace; font-size: 0.7rem; color: var(--primary); overflow-y: auto; z-index: 999; pointer-events: none; }
     </style>
 </head>
@@ -58,165 +47,143 @@
             <div>ETH: <span id="eth-price" style="color:var(--secondary)">$3,120</span></div>
         </div>
 
-        <h1>Crypto Hub</h1>
-        <p>Full Event Tracking Enabled</p>
+        <h1>Crypto Expert</h1>
+        <p>Full E-commerce Lifecycle</p>
 
-        <div id="crypto-list" style="margin-bottom: 25px; text-align: left;">
-            <p style="font-size: 0.8rem; margin-bottom: 10px; color: #6b7280;">🔥 Top Assets:</p>
+        <div id="product-list" style="margin-bottom: 20px;">
             <div class="crypto-card" onclick="trackSelect('BTC', 'Bitcoin', 98000)">
                 <span>Bitcoin (BTC)</span>
-                <button onclick="event.stopPropagation(); trackAddToCart('BTC', 'Bitcoin', 98000)" style="background:var(--primary); border:none; padding:5px 10px; border-radius:5px; cursor:pointer; font-weight:bold;">BUY</button>
+                <button onclick="event.stopPropagation(); trackAddToCart('BTC', 'Bitcoin', 98000)" class="btn btn-primary" style="padding: 5px 10px; font-size: 0.7rem;">BUY</button>
             </div>
             <div class="crypto-card" onclick="trackSelect('ETH', 'Ethereum', 3120)">
                 <span>Ethereum (ETH)</span>
-                <button onclick="event.stopPropagation(); trackAddToCart('ETH', 'Ethereum', 3120)" style="background:var(--secondary); color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; font-weight:bold;">BUY</button>
+                <button onclick="event.stopPropagation(); trackAddToCart('ETH', 'Ethereum', 3120)" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.7rem;">BUY</button>
             </div>
         </div>
 
-        <div id="checkout-container" style="display: none;">
+        <div id="checkout-container" style="display:none; border: 1px solid #374151; padding: 15px; border-radius: 16px; margin-bottom: 20px;">
+            
             <div id="step-cart" class="checkout-step active-step">
-                <h3 style="font-size: 0.9rem; color: var(--secondary); margin-bottom: 10px;">🛒 1. Coșul tău</h3>
-                <div id="cart-items-list"></div>
-                <div style="margin-top: 10px; font-weight: bold;">Total: <span id="cart-total">$0</span></div>
-                <button onclick="startCheckout()" style="width:100%; margin-top:10px; background:var(--primary); border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight:bold;">Începe Checkout</button>
-            </div>
-
-            <div id="step-shipping" class="checkout-step">
-                <h3 style="font-size: 0.9rem; color: var(--secondary); margin-bottom: 10px;">📦 2. Livrare</h3>
-                <input type="text" id="address" placeholder="Adresa de Wallet / Livrare">
-                <button onclick="addShipping()" style="width:100%; background:var(--primary); border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight:bold;">Confirmă Adresa</button>
+                <h3>🛒 Coș (View Cart)</h3>
+                <div id="cart-items"></div>
+                <button onclick="startCheckout()" class="btn btn-primary" style="width:100%; margin-top:10px;">Begin Checkout</button>
             </div>
 
             <div id="step-payment" class="checkout-step">
-                <h3 style="font-size: 0.9rem; color: var(--secondary); margin-bottom: 10px;">💳 3. Plată</h3>
-                <select id="pay-method">
-                    <option value="crypto">Crypto Transfer</option>
-                    <option value="card">Credit Card</option>
-                </select>
-                <button onclick="addPayment()" style="width:100%; background:var(--primary); border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight:bold;">Finalizează Plata</button>
+                <h3>💳 Plată & Finalizare</h3>
+                <select id="pay-opt"><option value="crypto">Crypto Wallet</option><option value="card">Credit Card</option></select>
+                <button onclick="completePurchase()" class="btn btn-primary" style="width:100%;">PLACE ORDER ($)</button>
+            </div>
+
+            <div id="step-success" class="checkout-step">
+                <h3 style="color:var(--primary)">✅ Succes!</h3>
+                <p id="order-id-display" style="font-size: 0.7rem; margin: 10px 0;"></p>
+                <button onclick="processRefund()" class="btn btn-danger" style="width:100%; font-size: 0.7rem;">Cere Refund (Test)</button>
+                <button onclick="resetLab()" class="btn btn-secondary" style="width:100%; margin-top:5px;">Cumpără din nou</button>
             </div>
         </div>
 
-        <button id="view-cart-btn" onclick="openCart()" style="display:none; width:100%; margin-bottom: 20px; background: none; border: 1px solid var(--secondary); color: var(--secondary); padding: 10px; border-radius: 8px; cursor: pointer;">Vezi Detalii Coș</button>
-
-        <div class="btn-grid">
-            <a href="tel:0722123456" class="btn btn-call" onclick="logToScreen('Click: Call')">📞 Sună Specialist</a>
-            <a href="https://wa.me/40722123456" target="_blank" class="btn btn-wapp pulse" onclick="triggerWapp()">💬 WhatsApp Direct</a>
-            <button onclick="triggerVirtualContact()" class="btn btn-contact">📩 Pagina Contact (Virtual)</button>
-        </div>
+        <button id="view-cart-btn" onclick="showCart()" style="display:none; width:100%; margin-bottom:15px; background:none; border:1px solid var(--secondary); color:var(--secondary); padding:10px; border-radius:12px; cursor:pointer;">Vezi Coșul</button>
 
         <form id="gtm-test-form">
-            <label style="font-size:0.8rem; color:#6b7280;">Nume Lead</label>
-            <input type="text" id="name" placeholder="Ex: Alex" required>
-            <button type="submit" style="width:100%; padding:14px; background:linear-gradient(45deg, var(--primary), var(--secondary)); border:none; border-radius:8px; color:white; font-weight:bold; cursor:pointer;">Trimite Lead</button>
+            <input type="text" id="name" placeholder="Nume pentru Lead" required>
+            <button type="submit" class="btn btn-secondary" style="width:100%;">Trimite Lead</button>
         </form>
     </div>
 
     <script>
         let cart = [];
+        let lastTransactionId = "";
+
         function logToScreen(msg) { 
             const log = document.getElementById('debug-log');
             log.innerHTML += `<br>> ${msg}`;
             log.scrollTop = log.scrollHeight;
         }
 
-        // VIEW ITEM LIST la încărcare
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            event: "view_item_list",
-            ecommerce: { item_list_name: "Dashboard Featured", items: [
-                { item_id: "BTC-01", item_name: "Bitcoin", price: 98000 },
-                { item_id: "ETH-01", item_name: "Ethereum", price: 3120 }
-            ]}
-        });
+        // --- ECOMMERCE ACTIONS ---
 
-        // ECOMMERCE LOGIC
         function trackSelect(id, name, price) {
             window.dataLayer.push({ event: "select_item", ecommerce: { items: [{ item_id: id, item_name: name, price: price }] } });
             window.dataLayer.push({ event: "view_item", ecommerce: { value: price, items: [{ item_id: id, item_name: name, price: price }] } });
-            logToScreen(`View: ${name}`);
+            logToScreen(`Select: ${name}`);
         }
 
         function trackAddToCart(id, name, price) {
             const item = { item_id: id, item_name: name, price: price, quantity: 1 };
             cart.push(item);
             window.dataLayer.push({ event: "add_to_cart", ecommerce: { value: price, items: [item] } });
-            updateCartUI();
-            logToScreen(`Cart: Added ${name}`);
+            document.getElementById('view-cart-btn').style.display = 'block';
+            logToScreen(`Added: ${name}`);
         }
 
-        function updateCartUI() {
-            const list = document.getElementById('cart-items-list');
-            const totalEl = document.getElementById('cart-total');
-            list.innerHTML = ""; let total = 0;
-            cart.forEach((item, index) => {
-                total += item.price;
-                list.innerHTML += `<div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:5px;"><span>${item.item_name}</span><span>$${item.price} <button onclick="removeFromCart(${index})" style="color:red; background:none; border:none; cursor:pointer;">[X]</button></span></div>`;
-            });
-            totalEl.innerText = "$" + total.toLocaleString();
-            document.getElementById('view-cart-btn').style.display = cart.length > 0 ? 'block' : 'none';
-        }
-
-        function removeFromCart(index) {
-            const item = cart[index];
-            window.dataLayer.push({ event: "remove_from_cart", ecommerce: { value: item.price, items: [item] } });
-            cart.splice(index, 1); updateCartUI();
-            logToScreen(`Removed: ${item.item_name}`);
-            if(cart.length === 0) document.getElementById('checkout-container').style.display = 'none';
-        }
-
-        // CHECKOUT FLOW
-        function openCart() {
+        function showCart() {
             window.dataLayer.push({ event: "view_cart", ecommerce: { value: cart.reduce((s,i)=>s+i.price,0), items: cart } });
             document.getElementById('checkout-container').style.display = 'block';
+            const list = document.getElementById('cart-items');
+            list.innerHTML = cart.map(i => `<div style="font-size:0.8rem;">${i.item_name} - $${i.price}</div>`).join('');
             showStep('step-cart');
-            logToScreen("Event: view_cart");
         }
 
         function startCheckout() {
             window.dataLayer.push({ event: "begin_checkout", ecommerce: { value: cart.reduce((s,i)=>s+i.price,0), items: cart } });
-            showStep('step-shipping');
-            logToScreen("Event: begin_checkout");
-        }
-
-        function addShipping() {
-            window.dataLayer.push({ event: "add_shipping_info", ecommerce: { value: cart.reduce((s,i)=>s+i.price,0), items: cart } });
             showStep('step-payment');
-            logToScreen("Event: add_shipping_info");
         }
 
-        function addPayment() {
-            const m = document.getElementById('pay-method').value;
-            window.dataLayer.push({ event: "add_payment_info", ecommerce: { value: cart.reduce((s,i)=>s+i.price,0), payment_type: m, items: cart } });
-            logToScreen(`Event: add_payment_info (${m})`);
-            alert("Checkout completat până la Plată!");
+        // --- PURCHASE & REFUND ---
+
+        function completePurchase() {
+            lastTransactionId = "T_" + Math.floor(Math.random() * 1000000);
+            const total = cart.reduce((s,i)=>s+i.price,0);
+
+            window.dataLayer.push({
+                event: "purchase",
+                ecommerce: {
+                    transaction_id: lastTransactionId,
+                    value: total,
+                    currency: "USD",
+                    tax: (total * 0.1).toFixed(2),
+                    items: cart
+                }
+            });
+
+            document.getElementById('order-id-display').innerText = "Tranzacție ID: " + lastTransactionId;
+            showStep('step-success');
+            logToScreen(`PURCHASE: ${lastTransactionId}`);
         }
 
-        function showStep(stepId) {
+        function processRefund() {
+            const total = cart.reduce((s,i)=>s+i.price,0);
+            window.dataLayer.push({
+                event: "refund",
+                ecommerce: {
+                    transaction_id: lastTransactionId,
+                    value: total,
+                    currency: "USD",
+                    items: cart
+                }
+            });
+            logToScreen(`REFUND: ${lastTransactionId}`);
+            alert("Refund trimis în GA4!");
+        }
+
+        function showStep(id) {
             document.querySelectorAll('.checkout-step').forEach(s => s.classList.remove('active-step'));
-            document.getElementById(stepId).classList.add('active-step');
+            document.getElementById(id).classList.add('active-step');
         }
 
-        // OTHER INTERACTONS
-        function triggerWapp() { window.dataLayer.push({ 'event': 'wapp_click' }); logToScreen('Event: Wapp'); }
-        function triggerVirtualContact() { window.dataLayer.push({ 'event': 'virtual_pageview_contact', 'page_path': '/contact' }); logToScreen('Event: Virtual PV'); }
-        document.getElementById('gtm-test-form').addEventListener('submit', function(e) {
+        function resetLab() { cart = []; document.getElementById('checkout-container').style.display='none'; document.getElementById('view-cart-btn').style.display='none'; }
+
+        document.getElementById('gtm-test-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            window.dataLayer.push({ 'event': 'test_form_submit', 'form_id': 'crypto_lead' });
-            logToScreen('Event: Form Submit');
-            alert('Lead trimis!');
+            window.dataLayer.push({ event: "test_form_submit" });
+            logToScreen("Form Sent");
         });
 
-        // UI HELPERS
         setInterval(() => {
             const btc = 98000 + Math.random() * 500;
-            document.getElementById('btc-price').innerText = '$' + btc.toLocaleString(undefined, {maximumFractionDigits:0});
+            document.getElementById('btc-price').innerText = '$' + btc.toLocaleString();
         }, 3000);
-        window.onscroll = function() {
-            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.getElementById("scroll-progress").style.width = (winScroll / height) * 100 + "%";
-        };
     </script>
 </body>
 </html>
