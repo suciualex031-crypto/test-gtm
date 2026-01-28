@@ -9,37 +9,35 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Tracking Lab | E-commerce</title>
+    <title>Ultimate Crypto Tracking Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        :root { 
-            --bg: #030712; --card: #111827; --primary: #00ffaa; 
-            --secondary: #6366f1; --wapp: #25D366; --text: #f9fafb;
-        }
+        :root { --bg: #030712; --card: #111827; --primary: #00ffaa; --secondary: #6366f1; --wapp: #25D366; --text: #f9fafb; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); min-height: 150vh; display: flex; flex-direction: column; align-items: center; padding-top: 40px; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); min-height: 180vh; display: flex; flex-direction: column; align-items: center; padding-top: 40px; }
         
         #scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(to right, var(--primary), var(--secondary)); z-index: 1000; }
-        
         .container { width: 95%; max-width: 500px; background: var(--card); padding: 30px; border-radius: 28px; border: 1px solid #1f2937; box-shadow: 0 25px 50px rgba(0,0,0,0.6); text-align: center; }
         
         .ticker { display: flex; justify-content: space-around; background: rgba(0,255,170,0.05); padding: 12px; border-radius: 16px; margin-bottom: 25px; border: 1px solid rgba(0,255,170,0.1); font-size: 0.85rem; font-weight: bold; }
-        
         h1 { font-size: 2.2rem; margin-bottom: 10px; background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* CRYPTO CARDS */
+
+        /* CARDS & BUTTONS */
         .crypto-card { background: #1f2937; padding: 15px; border-radius: 12px; cursor: pointer; margin-bottom: 10px; border: 1px solid transparent; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
         .crypto-card:hover { border-color: var(--primary); }
-        
-        /* CART STYLES */
-        #shopping-cart { margin-top: 20px; padding: 15px; border: 1px dashed var(--secondary); border-radius: 12px; background: rgba(99, 102, 241, 0.05); text-align: left; }
-        
         .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
         .btn { padding: 14px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; color: white; }
         .btn-call { background: var(--primary); color: #05070a; }
         .btn-wapp { background: var(--wapp); color: #05070a; grid-column: span 2; }
-        .btn-buy { background: var(--primary); color: #05070a; padding: 5px 10px; font-size: 0.7rem; border-radius: 5px; }
+        .btn-contact { background: var(--secondary); grid-column: span 2; }
+        .pulse { animation: pulse-animation 2s infinite; }
+        @keyframes pulse-animation { 0% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0.5); } 70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0px rgba(37, 211, 102, 0); } }
+
+        /* FORM & CART */
+        form { background: #0b0f1a; padding: 20px; border-radius: 16px; border: 1px solid #1f2937; text-align: left; margin-top: 20px; }
+        input { width: 100%; padding: 12px; margin: 8px 0 15px; border-radius: 8px; border: 1px solid #374151; background: var(--bg); color: white; }
+        #shopping-cart { margin: 20px 0; padding: 15px; border: 1px dashed var(--secondary); border-radius: 12px; text-align: left; background: rgba(99, 102, 241, 0.05); }
 
         #debug-log { position: fixed; bottom: 15px; right: 15px; width: 220px; max-height: 120px; background: rgba(0,0,0,0.85); border: 1px solid var(--secondary); border-radius: 12px; padding: 10px; font-family: monospace; font-size: 0.7rem; color: var(--primary); overflow-y: auto; z-index: 999; pointer-events: none; }
     </style>
@@ -48,7 +46,7 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6SFWCNT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="scroll-progress"></div>
-    <div id="debug-log">Status: GTM Ready...</div>
+    <div id="debug-log">Status: Lab Online...</div>
 
     <div class="container">
         <div class="ticker">
@@ -56,148 +54,126 @@
             <div>ETH: <span id="eth-price" style="color:var(--secondary)">$3,120</span></div>
         </div>
 
-        <h1>Crypto Tracker</h1>
-        <p>E-commerce GA4 Tracking Lab</p>
+        <h1>Crypto Hub</h1>
+        <p>Full Event Tracking Enabled</p>
 
         <div id="crypto-list" style="margin-bottom: 25px; text-align: left;">
             <p style="font-size: 0.8rem; margin-bottom: 10px; color: #6b7280;">🔥 Featured Coins:</p>
-            
             <div class="crypto-card" onclick="trackSelect('BTC', 'Bitcoin', 98000)">
-                <span>Bitcoin (BTC) - $98,000</span>
-                <button class="btn-buy" onclick="event.stopPropagation(); trackAddToCart('BTC', 'Bitcoin', 98000)">BUY</button>
+                <span>Bitcoin (BTC) - $98k</span>
+                <button onclick="event.stopPropagation(); trackAddToCart('BTC', 'Bitcoin', 98000)" style="background:var(--primary); border:none; padding:5px 10px; border-radius:5px; cursor:pointer; font-weight:bold;">BUY</button>
             </div>
-
             <div class="crypto-card" onclick="trackSelect('ETH', 'Ethereum', 3120)">
-                <span>Ethereum (ETH) - $3,120</span>
-                <button class="btn-buy" onclick="event.stopPropagation(); trackAddToCart('ETH', 'Ethereum', 3120)">BUY</button>
+                <span>Ethereum (ETH) - $3.1k</span>
+                <button onclick="event.stopPropagation(); trackAddToCart('ETH', 'Ethereum', 3120)" style="background:var(--secondary); color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; font-weight:bold;">BUY</button>
             </div>
         </div>
 
         <div id="shopping-cart" style="display: none;">
             <h3 style="font-size: 0.9rem; color: var(--secondary); margin-bottom: 10px;">🛒 Coșul tău</h3>
             <div id="cart-items-list"></div>
-            <div style="margin-top: 10px; font-weight: bold; font-size: 0.9rem;">Total: <span id="cart-total">$0</span></div>
+            <div style="margin-top: 10px; font-weight: bold;">Total: <span id="cart-total">$0</span></div>
+            <button onclick="openCart()" style="width:100%; margin-top:10px; background:var(--secondary); color:white; border:none; padding:8px; border-radius:8px; cursor:pointer;">View Cart Details</button>
         </div>
-
-        <button id="view-cart-btn" onclick="openCart()" style="display:none; width:100%; margin: 10px 0; background: none; border: 1px solid var(--secondary); color: var(--secondary); padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold;">
-            Vezi Detalii Coș
-        </button>
 
         <div class="btn-grid">
-            <a href="tel:0722123456" class="btn btn-call" onclick="logToScreen('Click: Telefon')">📞 Sună</a>
-            <a href="https://wa.me/40722123456" target="_blank" class="btn btn-wapp" onclick="triggerWapp()">💬 WhatsApp</a>
+            <a href="tel:0722123456" class="btn btn-call" onclick="logToScreen('Click: Call')">📞 Sună Acum</a>
+            <a href="https://wa.me/40722123456" target="_blank" class="btn btn-wapp pulse" onclick="triggerWapp()">💬 WhatsApp</a>
+            <button onclick="triggerVirtualContact()" class="btn btn-contact">📩 Vezi Pagina Contact</button>
         </div>
+
+        <form id="gtm-test-form">
+            <label style="font-size:0.8rem; color:#6b7280;">Nume Client</label>
+            <input type="text" id="name" placeholder="Ex: Alex" required>
+            <button type="submit" style="width:100%; padding:14px; background:linear-gradient(45deg, var(--primary), var(--secondary)); border:none; border-radius:8px; color:white; font-weight:bold; cursor:pointer;">Trimite Lead</button>
+        </form>
     </div>
 
     <script>
         let cart = [];
-
-        function logToScreen(msg) {
+        function logToScreen(msg) { 
             const log = document.getElementById('debug-log');
-            if(log) {
-                log.innerHTML += `<br>> ${msg}`;
-                log.scrollTop = log.scrollHeight;
-            }
+            log.innerHTML += `<br>> ${msg}`;
+            log.scrollTop = log.scrollHeight;
         }
 
-        // view_item_list la încărcare
+        // view_item_list la început
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             event: "view_item_list",
-            ecommerce: {
-                item_list_id: "related_products",
-                item_list_name: "Featured Cryptos",
-                items: [
-                    { item_id: "BTC-01", item_name: "Bitcoin", price: 98000, item_category: "Coin" },
-                    { item_id: "ETH-01", item_name: "Ethereum", price: 3120, item_category: "Coin" }
-                ]
-            }
+            ecommerce: { item_list_name: "Dashboard List", items: [
+                { item_id: "BTC-01", item_name: "Bitcoin", price: 98000 },
+                { item_id: "ETH-01", item_name: "Ethereum", price: 3120 }
+            ]}
         });
 
+        // ECOMMERCE LOGIC
         function trackSelect(id, name, price) {
-            window.dataLayer.push({
-                event: "select_item",
-                ecommerce: {
-                    item_list_id: "related_products",
-                    items: [{ item_id: id + "-01", item_name: name, price: price, item_category: "Coin" }]
-                }
-            });
-            logToScreen(`Select: ${name}`);
-            trackViewItem(id, name, price);
-        }
-
-        function trackViewItem(id, name, price) {
-            window.dataLayer.push({
-                event: "view_item",
-                ecommerce: { currency: "USD", value: price, items: [{ item_id: id + "-01", item_name: name, price: price }] }
-            });
-            logToScreen(`View Item: ${name}`);
+            window.dataLayer.push({ event: "select_item", ecommerce: { items: [{ item_id: id, item_name: name, price: price }] } });
+            window.dataLayer.push({ event: "view_item", ecommerce: { value: price, items: [{ item_id: id, item_name: name, price: price }] } });
+            logToScreen(`Select/View: ${name}`);
         }
 
         function trackAddToCart(id, name, price) {
-            const item = { item_id: id + "-01", item_name: name, price: price, quantity: 1 };
+            const item = { item_id: id, item_name: name, price: price, quantity: 1 };
             cart.push(item);
-            window.dataLayer.push({
-                event: "add_to_cart",
-                ecommerce: { currency: "USD", value: price, items: [item] }
-            });
+            window.dataLayer.push({ event: "add_to_cart", ecommerce: { value: price, items: [item] } });
             updateCartUI();
-            logToScreen(`Cart: Added ${name}`);
-        }
-
-        function openCart() {
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            window.dataLayer.push({
-                event: "view_cart",
-                ecommerce: { currency: "USD", value: total, items: cart }
-            });
-            document.getElementById('shopping-cart').style.display = 'block';
-            logToScreen("Ecommerce: view_cart sent");
-        }
-
-        function removeFromCart(index) {
-            const removedItem = cart[index];
-            window.dataLayer.push({
-                event: "remove_from_cart",
-                ecommerce: { currency: "USD", value: removedItem.price, items: [removedItem] }
-            });
-            cart.splice(index, 1);
-            updateCartUI();
-            logToScreen(`Removed: ${removedItem.item_name}`);
+            logToScreen(`Added: ${name}`);
         }
 
         function updateCartUI() {
             const list = document.getElementById('cart-items-list');
             const totalEl = document.getElementById('cart-total');
-            const viewBtn = document.getElementById('view-cart-btn');
-            list.innerHTML = "";
-            let total = 0;
+            list.innerHTML = ""; let total = 0;
             cart.forEach((item, index) => {
                 total += item.price;
-                list.innerHTML += `<div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:5px;"><span>${item.item_name}</span><span>$${item.price} <button onclick="removeFromCart(${index})" style="color:red; background:none; border:none; cursor:pointer;">[X]</button></span></div>`;
+                list.innerHTML += `<div style="display:flex; justify-content:space-between; font-size:0.8rem;"><span>${item.item_name}</span><span>$${item.price} <button onclick="removeFromCart(${index})" style="color:red; background:none; border:none; cursor:pointer;">[X]</button></span></div>`;
             });
             totalEl.innerText = "$" + total.toLocaleString();
-            viewBtn.style.display = cart.length > 0 ? "block" : "none";
-            if (cart.length === 0) document.getElementById('shopping-cart').style.display = 'none';
+            document.getElementById('shopping-cart').style.display = cart.length > 0 ? 'block' : 'none';
         }
 
-        function triggerWapp() {
-            window.dataLayer.push({ 'event': 'wapp_click', 'platform': 'whatsapp' });
-            logToScreen('GTM: wapp_click sent!');
+        function removeFromCart(index) {
+            const item = cart[index];
+            window.dataLayer.push({ event: "remove_from_cart", ecommerce: { value: item.price, items: [item] } });
+            cart.splice(index, 1); updateCartUI();
+            logToScreen(`Removed: ${item.item_name}`);
         }
 
-        // Ticker & Scroll
+        function openCart() {
+            window.dataLayer.push({ event: "view_cart", ecommerce: { value: cart.reduce((s,i)=>s+i.price,0), items: cart } });
+            logToScreen("Event: view_cart");
+        }
+
+        // CONTACT & WAPP & FORM
+        function triggerWapp() { 
+            window.dataLayer.push({ 'event': 'wapp_click' }); 
+            logToScreen('Event: Wapp Click'); 
+        }
+
+        function triggerVirtualContact() { 
+            window.dataLayer.push({ 'event': 'virtual_pageview_contact', 'page_path': '/contact' }); 
+            logToScreen('Event: Virtual Contact'); 
+        }
+
+        document.getElementById('gtm-test-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            window.dataLayer.push({ 'event': 'test_form_submit', 'form_id': 'crypto_lead' });
+            logToScreen('Event: Form Submit');
+            alert('Lead trimis!');
+        });
+
+        // UI: Ticker & Scroll
         setInterval(() => {
             const btc = 98000 + Math.random() * 500;
-            const el = document.getElementById('btc-price');
-            if(el) el.innerText = '$' + btc.toLocaleString(undefined, {maximumFractionDigits: 0});
+            document.getElementById('btc-price').innerText = '$' + btc.toLocaleString(undefined, {maximumFractionDigits:0});
         }, 3000);
 
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrolled = (winScroll / height) * 100;
-            document.getElementById("scroll-progress").style.width = scrolled + "%";
+            document.getElementById("scroll-progress").style.width = (winScroll / height) * 100 + "%";
         };
     </script>
 </body>
