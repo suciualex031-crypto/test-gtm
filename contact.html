@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T6SFWCNT');</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tracking Sandbox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030712; --card: #111827; --primary: #00ffaa; --text: #f9fafb; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; padding-top: 50px; }
+        .container { width: 95%; max-width: 500px; background: var(--card); padding: 30px; border-radius: 24px; border: 1px solid #1f2937; text-align: center; }
+        .btn { display: inline-block; margin-top: 20px; padding: 12px 24px; background: var(--primary); color: #05070a; text-decoration: none; border-radius: 12px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #374151; background: #030712; color: white; }
+    </style>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6SFWCNT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="container">
+        <h1>📞 Pagina de Contact Reală</h1>
+        <p>Acesta nu mai este un eveniment virtual!</p>
+        
+        <form id="real-contact-form">
+            <input type="text" id="contact-name" placeholder="Nume" required>
+            <input type="email" id="contact-email" placeholder="Email" required>
+            <textarea placeholder="Mesajul tău" rows="4"></textarea>
+            <button type="submit" class="btn" style="width:100%; border:none;">Trimite Mesaj</button>
+        </form>
+
+        <a href="index.html" class="btn" style="background: none; border: 1px solid #374151; color: white;">← Înapoi la Home</a>
+    </div>
+
+    <script>
+        document.getElementById('real-contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'contact_form_success',
+                'page_location': window.location.href,
+                'user_data': {
+                    'em': document.getElementById('contact-email').value
+                }
+            });
+            alert('Mesaj trimis! Verifică GTM.');
+        });
+    </script>
+</body>
+</html>
